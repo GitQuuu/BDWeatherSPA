@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {WeatherService} from '../services/weather/weather.service';
 import {ApiResponseModel} from '../services/apiResponseModel';
-import {WeatherCurrent} from '../services/weather/weatherCurrentModel';
+import {CurrentDay, ForecastDay, LocationModel} from '../services/weather/forecastResponseModel';
 import {Subscription} from 'rxjs';
 
 @Component({
@@ -24,7 +24,13 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
         this.weatherDataSub = this.weatherService.getWeatherData("Aalborg", 2).subscribe({
           next: (data) => {
             let response = data.body as ApiResponseModel;
-            this.weatherService.$CurrentDay.set(response.data.current as WeatherCurrent);
+            console.log(response);
+            this.weatherService.$CurrentDay.set(response.data.current as CurrentDay);
+            this.weatherService.$Forecast.set(response.data.forecast as ForecastDay[]);
+            this.weatherService.$Location.set(response.data.location as LocationModel);
+            console.log(this.weatherService.$CurrentDay());
+            console.log(this.weatherService.$Forecast());
+            console.log(this.weatherService.$Location());
           },
           error: (err) => {
             console.log(err);
