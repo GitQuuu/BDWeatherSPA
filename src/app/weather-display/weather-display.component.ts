@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {WeatherService} from '../services/weather/weather.service';
+import {ApiResponseModel} from '../services/ApiResponseModel';
 
 @Component({
   selector: 'app-weather-display',
@@ -15,7 +16,8 @@ export class WeatherDisplayComponent implements OnInit {
     ngOnInit(): void {
         this.weatherService.getWeatherData("Aalborg", 2).subscribe({
           next: (data) => {
-            console.log(data);
+            let response = data.body as ApiResponseModel
+            console.log(response);
           },
           error: (err) => {
             console.log(err);
