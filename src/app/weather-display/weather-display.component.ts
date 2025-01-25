@@ -6,6 +6,7 @@ import {Subscription} from 'rxjs';
 import {NgClass} from '@angular/common';
 import {CurrentDayComponent} from './current-day/current-day.component';
 import {WeatherClass} from './weatherClass';
+import {ForecastComponent} from './forecast/forecast.component';
 
 @Component({
   selector: 'app-weather-display',
@@ -13,6 +14,7 @@ import {WeatherClass} from './weatherClass';
   imports: [
     NgClass,
     CurrentDayComponent,
+    ForecastComponent,
   ],
   templateUrl: './weather-display.component.html',
   styleUrl: './weather-display.component.css'
