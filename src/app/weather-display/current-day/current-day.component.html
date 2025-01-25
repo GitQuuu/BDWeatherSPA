@@ -1,4 +1,4 @@
-<p-card styleClass="w-full overflow-hidden" >
+<p-card styleClass="w-full overflow-hidden bg-transparent" >
   <ng-template #header>
     <img alt="Card" class="w-full" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
   </ng-template>
@@ -12,27 +12,27 @@
       </div>
     </div>
   </ng-template>
-  <ng-template #subtitle> {{this.location?.localtime | date }} </ng-template>
+  <ng-template #subtitle> <p class="-mt-7">{{this.location?.localtime | date }}</p> </ng-template>
 
-  <div class="grid grid-cols-6">
+  <div class="flex justify-between mt-4">
     <div>
       <img class="size-12" src="assets/icons/thermo.png" alt="temperature">
       <p class="ml-2 sm:ml-4">{{ this.currentDay.temp_c }}°C</p>
     </div>
     <div>
       <img class="size-12" src="assets/icons/humidity.png" alt="humidity">
-      <p class="ml-2 sm:ml-4">{{ this.currentDay.humidity }}</p>
+      <p class="ml-2 sm:ml-3">{{ this.currentDay.humidity }}%</p>
     </div>
     <div>
-      <img class="size-12" src="assets/icons/wind%20(1).png" alt="humidity">
-      <p class="ml-2 sm:ml-4">{{ this.currentDay.wind_kph }}</p>
+      <img class="size-12" src="assets/icons/wind%20(1).png" alt="wind">
+      <p>{{ this.currentDay.wind_kph }} kmp</p>
+    </div>
+    <div>
+      <img class="size-12" src="assets/icons/rain.png" alt="rain">
+      <p>{{ this.currentDay.precip_mm }} mm</p>
     </div>
   </div>
 
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
-    quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!
-  </p>
   <ng-template #footer>
     <div class="flex gap-4 mt-1">
       <p-button (click)="onChangeLocationClick()" label="Change location" class="w-full" styleClass="w-full" />
