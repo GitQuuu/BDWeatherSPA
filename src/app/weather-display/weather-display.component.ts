@@ -101,5 +101,25 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
 
   listenToChartClick($event: ForecastDay) {
     this.updateCurrentDay = $event;
+
+    const condition = this.updateCurrentDay.day.condition.text.toLowerCase() || ""
+    console.log(condition);
+
+    let selector = WeatherClass.Default;
+
+    if (condition.includes("light rain")) selector = WeatherClass.LightRain;
+    if (condition.includes("rain")) selector = WeatherClass.Rainy;
+    if (condition.includes("overcast")) selector = WeatherClass.Cloudy;
+    if (condition.includes("partly cloudy")) selector = WeatherClass.PartlyCloudy;
+    if (condition.includes("sunny")) selector = WeatherClass.Sunny;
+    if (condition.includes("clear")) selector = WeatherClass.Clear;
+    if (condition.includes("snow")) selector = WeatherClass.Snowy;
+    if (condition.includes("storm") || condition.includes("thunder")) selector = WeatherClass.Stormy;
+    if (condition.includes("fog") || condition.includes("haze")) selector = WeatherClass.Foggy;
+    if (condition.includes("wind")) selector = WeatherClass.Windy;
+
+    this.weatherService.$CurrentDayBackground.set(selector);
   }
+
+
 }
