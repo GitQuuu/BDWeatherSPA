@@ -64,12 +64,6 @@ export class CurrentDayComponent implements OnInit, OnChanges {
       const humidity = this.forecasts.forecastday.map(forecast => forecast.day.avghumidity );
       const wind = this.forecasts.forecastday.map(forecast => forecast.day.maxwind_kph );
       const rain = this.forecasts.forecastday.map(forecast => forecast.day.totalprecip_mm );
-      console.log(labels)
-      console.log(temperature)
-      console.log(humidity)
-      console.log(wind)
-      console.log(rain)
-
 
       this.data = {
         labels: labels,
@@ -113,7 +107,7 @@ export class CurrentDayComponent implements OnInit, OnChanges {
 
       this.options = {
         maintainAspectRatio: false,
-        aspectRatio: 0.6,
+        aspectRatio: 0.4,
         plugins: {
           legend: {
             labels: {
@@ -141,13 +135,24 @@ export class CurrentDayComponent implements OnInit, OnChanges {
         },
         onClick: (event: any, elements: any[]) => {
           if (elements.length > 0) {
-            const chart = event.chart;
-            const datasetIndex = elements[0].datasetIndex;
             const index = elements[0].index;
             const dateClicked = labels[index];
 
             console.log(`Clicked on date: ${dateClicked}`);
 
+            const clickedForecast = this.forecasts!.forecastday.find(forecast => forecast.date === dateClicked);
+            console.log(clickedForecast);
+
+            if (clickedForecast) {
+              this.currentDay.temp_c = clickedForecast.day.avgtemp_c;
+              this.currentDay.humidity = clickedForecast.day.avghumidity;
+              this.currentDay.wind_kph = clickedForecast.day.maxwind_kph;
+              this.currentDay.precip_mm = clickedForecast.day.totalprecip_mm;
+              this.currentDay.condition.text = clickedForecast.day.condition.text;
+              this.currentDay.condition.icon = clickedForecast.day.condition.icon;
+
+              this.cd.detectChanges();
+            }
           }
         }
       };
@@ -156,4 +161,7 @@ export class CurrentDayComponent implements OnInit, OnChanges {
   }
 
 
+  onChangeLocationClick() {
+
+  }
 }
