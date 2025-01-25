@@ -18,12 +18,18 @@
       [currentDay]=this.weatherService.$CurrentDay()
     >
     </app-current-day>
-    <div class="flex w-full gap-2 my-4 items-center">
+    <div class="flex w-full gap-2 my-6 items-center">
       <p-floatlabel class="flex-grow">
-        <input class="w-full p-2" pInputText id="on_label" [(ngModel)]="location" autocomplete="off" />
+        <input
+          [value]="newLocation"
+          (input)="locationListener($event)"
+          class="w-full p-2"
+          pInputText id="on_label"
+          autocomplete="off" />
         <label for="on_label">Cityname or lat & lon</label>
       </p-floatlabel>
       <p-button
+        (click)="updateLocationClick()"
         class="whitespace-nowrap"
         severity="success">Update location
       </p-button>

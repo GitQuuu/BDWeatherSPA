@@ -29,9 +29,10 @@ import {Button} from 'primeng/button';
 })
 export class WeatherDisplayComponent implements OnInit, OnDestroy {
   private weatherDataSub: Subscription = new Subscription();
-  location: string = '';
+  newLocation: string = '';
 
   constructor(protected weatherService: WeatherService) {
+    this.getWeatherData("Århus")
   }
 
   ngOnDestroy(): void {
@@ -39,7 +40,12 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.weatherDataSub = this.weatherService.getWeatherData("Aalborg", 7).subscribe({
+
+    console.log("Weather Display Component loaded");
+  }
+
+  getWeatherData(location:string){
+    this.weatherDataSub = this.weatherService.getWeatherData(location, 7).subscribe({
       next: (data) => {
         let response = data.body as ApiResponseModel;
         console.log(response);
@@ -58,7 +64,6 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
         this.getWeatherClass();
       }
     })
-    console.log("Weather Display Component loaded");
   }
 
   getWeatherClass() {
@@ -83,4 +88,13 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
   }
 
 
+  locationListener($event: Event) {
+    const inputElement = $event.target as HTMLInputElement;
+    console.log(inputElement.value);
+    this.newLocation = inputElement.value;
+  }
+
+  updateLocationClick() {
+    this.getWeatherData(this.newLocation);
+  }
 }
