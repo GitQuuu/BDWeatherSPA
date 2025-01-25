@@ -1,7 +1,7 @@
 import {ChangeDetectorRef, Component, EventEmitter, inject, Input, OnInit, Output, PLATFORM_ID} from '@angular/core';
 import {Card} from 'primeng/card';
 import {Button} from 'primeng/button';
-import {CurrentDay, LocationModel} from '../../services/weather/forecastResponseModel';
+import {CurrentDay, ForecastDay, LocationModel} from '../../services/weather/forecastResponseModel';
 import {DatePipe, isPlatformBrowser} from '@angular/common';
 import {ChartModule, UIChart} from 'primeng/chart';
 
@@ -28,6 +28,7 @@ export class CurrentDayComponent implements OnInit {
   }
   @Input() currentDay!: CurrentDay;
   @Input() location!: LocationModel;
+  @Input() forecasts!: ForecastDay[];
   @Output() changeLocation = new EventEmitter();
   data: any;
   options: any;

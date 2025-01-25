@@ -10,6 +10,7 @@
   <app-current-day
     [location]="this.weatherService.$Location()"
     [currentDay]=this.weatherService.$CurrentDay()
+    [forecasts]=this.weatherService.$Forecast()
     class="flex justify-center items-center mb-44 sm:mb-72 lg:mb-36 w-10/12">
   </app-current-day>
 </div>
