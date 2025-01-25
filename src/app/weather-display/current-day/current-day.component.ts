@@ -68,7 +68,15 @@ export class CurrentDayComponent implements OnInit, OnChanges {
 
       // ✅ Extract forecast dates for labels
       const labels = this.forecasts.forecastday.map(forecast => forecast.date || 'No Date');
+      const temperature = this.forecasts.forecastday.map(forecast => forecast.day.avgtemp_c );
+      const humidity = this.forecasts.forecastday.map(forecast => forecast.day.avghumidity );
+      const wind = this.forecasts.forecastday.map(forecast => forecast.day.maxwind_kph );
+      const rain = this.forecasts.forecastday.map(forecast => forecast.day.totalprecip_mm );
       console.log(labels)
+      console.log(temperature)
+      console.log(humidity)
+      console.log(wind)
+      console.log(rain)
 
 
       this.data = {
@@ -81,30 +89,31 @@ export class CurrentDayComponent implements OnInit, OnChanges {
             borderWidth: 2,
             fill: false,
             tension: 0.4,
-            data: [50, 25, 12, 48, 56, 76, 42]
+            data: temperature
           },
           {
-            type: 'bar',
-            label: 'humidity',
+
+            type: 'line',
+            label: 'humidity %',
             backgroundColor: documentStyle.getPropertyValue('--p-gray-500'),
-            data: [21, 84, 24, 75, 37, 65, 34],
+            data: humidity,
             borderColor: 'white',
             borderWidth: 2
           },
           {
-            type: 'bar',
-            label: 'wind',
+            type: 'line',
+            label: 'wind kph',
             backgroundColor: documentStyle.getPropertyValue('--p-cyan-500'),
-            data: [41, 52, 24, 74, 23, 21, 32]
+            data: wind,
           },
           {
-            type: 'line',
-            label: 'rain',
+            type: 'bar',
+            label: 'rain mm.',
             borderColor: documentStyle.getPropertyValue('--p-blue-500'),
             borderWidth: 2,
-            fill: false,
+            fill: true,
             tension: 0.4,
-            data: [33, 10, 50, 80, 80, 0, 5]
+            data: rain
           },
         ]
       };
