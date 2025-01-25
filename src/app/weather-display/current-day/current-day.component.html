@@ -1,6 +1,7 @@
 <p-card styleClass="w-full overflow-hidden bg-transparent" >
   <ng-template #header>
-    <img alt="Card" class="w-full" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
+
+    <img alt="Card"  src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
   </ng-template>
   <ng-template #title>
     <div class="flex justify-between items-center">
@@ -36,7 +37,7 @@
 
   <ng-template #footer>
     <div class="flex gap-4 mt-1">
-      <p-button (click)="onChangeLocationClick()" label="Change location" class="w-full" styleClass="w-full" />
+      <p-button severity="success" (click)="onChangeLocationClick()" label="Change location" class="w-full" styleClass="w-full" />
     </div>
   </ng-template>
 </p-card>
