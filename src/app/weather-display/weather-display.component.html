@@ -1,3 +1,15 @@
-<div class="flex w-full h-screen " [ngClass]="getWeatherClass()">
+<div class="flex w-full h-screen" [ngClass]="getWeatherClass()">
+  <div class="flex w-full ">
+    <img class="size-10 m-4 sm:size-16"
+         src="https://framerusercontent.com/assets/yUkK5egE7b94WICNQRrxrBteBA.webp"
+         alt="Better developer logo">
+    <p class="mt-4 sm:mt-8 text-3xl text-white">Weathy</p>
+  </div>
 
+  <img *ngIf="this.weatherService.$CurrentDay()" class="size-16 m-1 sm:size-20"
+       ngSrc="{{this.weatherService.$CurrentDay()?.condition?.icon}}"
+       alt="weather condition logo"
+       width="1"
+       height="1"
+  >
 </div>
