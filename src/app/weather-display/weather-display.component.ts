@@ -11,7 +11,6 @@ import {CurrentDayComponent} from './current-day/current-day.component';
   standalone: true,
   imports: [
     NgClass,
-    NgIf,
     CurrentDayComponent,
   ],
   templateUrl: './weather-display.component.html',

@@ -17,19 +17,19 @@
   <div class="flex justify-between mt-4">
     <div>
       <img class="size-12" src="assets/icons/thermo.png" alt="temperature">
-      <p class="ml-2 sm:ml-4">{{ this.currentDay.temp_c }}°C</p>
+      <p class="ml-2 sm:ml-4">{{ this.currentDay?.temp_c }}°C</p>
     </div>
     <div>
       <img class="size-12" src="assets/icons/humidity.png" alt="humidity">
-      <p class="ml-2 sm:ml-3">{{ this.currentDay.humidity }}%</p>
+      <p class="ml-2 sm:ml-3">{{ this.currentDay?.humidity }}%</p>
     </div>
     <div>
       <img class="size-12" src="assets/icons/wind%20(1).png" alt="wind">
-      <p>{{ this.currentDay.wind_kph }} kmp</p>
+      <p>{{ this.currentDay?.wind_kph }} kmp</p>
     </div>
     <div>
       <img class="size-12" src="assets/icons/rain.png" alt="rain">
-      <p>{{ this.currentDay.precip_mm }} mm</p>
+      <p>{{ this.currentDay?.precip_mm }} mm</p>
     </div>
   </div>
 
