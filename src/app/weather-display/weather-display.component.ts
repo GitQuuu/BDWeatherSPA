@@ -5,6 +5,7 @@ import {CurrentDay, ForecastDay, LocationModel} from '../services/weather/foreca
 import {Subscription} from 'rxjs';
 import {NgClass} from '@angular/common';
 import {CurrentDayComponent} from './current-day/current-day.component';
+import {WeatherClass} from './weatherClass';
 
 @Component({
   selector: 'app-weather-display',
@@ -52,18 +53,19 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
     const condition = this.weatherService.$CurrentDay()?.condition.text.toLowerCase() || "";
     console.log("Current weather condition:", condition);
 
-    let weatherClass = "default-weather";
+    let selector = WeatherClass.Default;
 
-    if (condition.includes("rain")) weatherClass = "rainy";
-    if (condition.includes("overcast")) weatherClass = "cloudy";
-    if (condition.includes("partly cloudy")) weatherClass = "partly-cloudy";
-    if (condition.includes("sunny") || condition.includes("clear")) weatherClass = "clear";
-    if (condition.includes("snow")) weatherClass = "snowy";
-    if (condition.includes("storm") || condition.includes("thunder")) weatherClass = "stormy";
-    if (condition.includes("fog") || condition.includes("haze")) weatherClass = "foggy";
-    if (condition.includes("wind")) weatherClass = "windy";
+    if (condition.includes("rain")) selector = WeatherClass.Rainy;
+    if (condition.includes("overcast")) selector = WeatherClass.Cloudy;
+    if (condition.includes("partly cloudy")) selector = WeatherClass.PartlyCloudy;
+    if (condition.includes("sunny")) selector = WeatherClass.Sunny;
+    if (condition.includes("clear")) selector = WeatherClass.Clear;
+    if (condition.includes("snow")) selector = WeatherClass.Snowy;
+    if (condition.includes("storm") || condition.includes("thunder")) selector = WeatherClass.Stormy;
+    if (condition.includes("fog") || condition.includes("haze")) selector = WeatherClass.Foggy;
+    if (condition.includes("wind")) selector = WeatherClass.Windy;
 
-    this.weatherService.$CurrentDayBackground.set(weatherClass);
+    this.weatherService.$CurrentDayBackground.set(selector);
     console.log(this.weatherService.$CurrentDayBackground());
   }
 
