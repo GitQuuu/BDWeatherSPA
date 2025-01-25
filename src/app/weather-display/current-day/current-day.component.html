@@ -13,13 +13,29 @@
     </div>
   </ng-template>
   <ng-template #subtitle> {{this.location?.localtime | date }} </ng-template>
+
+  <div class="grid grid-cols-6">
+    <div>
+      <img class="size-12" src="assets/icons/thermo.png" alt="temperature">
+      <p class="ml-2 sm:ml-4">{{ this.currentDay.temp_c }}°C</p>
+    </div>
+    <div>
+      <img class="size-12" src="assets/icons/humidity.png" alt="humidity">
+      <p class="ml-2 sm:ml-4">{{ this.currentDay.humidity }}</p>
+    </div>
+    <div>
+      <img class="size-12" src="assets/icons/wind%20(1).png" alt="humidity">
+      <p class="ml-2 sm:ml-4">{{ this.currentDay.wind_kph }}</p>
+    </div>
+  </div>
+
   <p>
     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
     quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!
   </p>
   <ng-template #footer>
     <div class="flex gap-4 mt-1">
-      <p-button label="Change location" class="w-full" styleClass="w-full" />
+      <p-button (click)="onChangeLocationClick()" label="Change location" class="w-full" styleClass="w-full" />
     </div>
   </ng-template>
 </p-card>

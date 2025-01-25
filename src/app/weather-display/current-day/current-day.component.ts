@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Card} from 'primeng/card';
 import {Button} from 'primeng/button';
 import {CurrentDay, LocationModel} from '../../services/weather/forecastResponseModel';
@@ -17,4 +17,9 @@ import {DatePipe} from '@angular/common';
 export class CurrentDayComponent {
   @Input() currentDay!: CurrentDay;
   @Input() location!: LocationModel;
+  @Output() changeLocation = new EventEmitter();
+
+  onChangeLocationClick() {
+    console.log(this.currentDay);
+  }
 }
