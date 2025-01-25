@@ -1,4 +1,4 @@
-<p-card styleClass="w-full overflow-hidden bg-transparent" >
+<p-card styleClass="w-full overflow-hidden bg-card" >
   <ng-template #header>
 
     <img alt="Card"  src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
@@ -16,7 +16,7 @@
   <ng-template #subtitle> <p class="-mt-7">{{ this.location?.localtime | date: 'dd-MM-yyyy HH:mm' }}</p>
   </ng-template>
 
-  <div class="flex justify-between mt-4">
+  <div class="flex justify-between mt-4 ">
     <div>
       <img class="size-12" src="assets/icons/thermo.png" alt="temperature">
       <p class="ml-2 sm:ml-4">{{ this.currentDay?.temp_c }}°C</p>
