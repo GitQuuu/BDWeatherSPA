@@ -42,7 +42,6 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
         })
     }
 
-
   getWeatherClass(): string {
     const condition = this.weatherService.$CurrentDay()?.condition.text.toLowerCase() || "";
 
@@ -54,7 +53,7 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
     if (condition.includes("fog") || condition.includes("haze")) return "foggy";
     if (condition.includes("wind")) return "windy";
 
-    return "default-weather"; // Default fallback
+    return "default-weather"; 
   }
 
 }
