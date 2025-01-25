@@ -2,8 +2,16 @@
   @apply bg-gradient-to-br from-blue-400 to-blue-500;
 }
 
+.clear {
+  @apply bg-gradient-to-br from-blue-300 to-blue-400;
+}
+
 .sunny {
   @apply bg-gradient-to-br from-orange-400 to-red-400;
+}
+
+.partly-cloudy {
+  @apply bg-gradient-to-br from-blue-300 to-gray-400;
 }
 
 .cloudy {
