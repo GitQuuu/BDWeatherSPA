@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import {Card} from 'primeng/card';
 import {Button} from 'primeng/button';
-import {CurrentDay, Forecast, ForecastDay, LocationModel} from '../../services/weather/forecastResponseModel';
+import {CurrentDay, Forecast, LocationModel} from '../../services/weather/forecastResponseModel';
 import {DatePipe, isPlatformBrowser} from '@angular/common';
 import {ChartModule, UIChart} from 'primeng/chart';
 
@@ -37,13 +37,6 @@ export class CurrentDayComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['forecasts']) {
-      console.log('Forecasts changed:', this.forecasts);
-      if (this.forecasts){
-        for (const day of this.forecasts.forecastday) {
-          console.log(day);
-        }
-      }
-      // Reinitialize chart or perform other actions
       this.initChart();
     }
   }
@@ -66,7 +59,6 @@ export class CurrentDayComponent implements OnInit, OnChanges {
       const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
       const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
 
-      // ✅ Extract forecast dates for labels
       const labels = this.forecasts.forecastday.map(forecast => forecast.date || 'No Date');
       const temperature = this.forecasts.forecastday.map(forecast => forecast.day.avgtemp_c );
       const humidity = this.forecasts.forecastday.map(forecast => forecast.day.avghumidity );
@@ -107,6 +99,7 @@ export class CurrentDayComponent implements OnInit, OnChanges {
             data: wind,
           },
           {
+
             type: 'bar',
             label: 'rain mm.',
             borderColor: documentStyle.getPropertyValue('--p-blue-500'),
@@ -145,13 +138,22 @@ export class CurrentDayComponent implements OnInit, OnChanges {
               color: surfaceBorder
             }
           }
+        },
+        onClick: (event: any, elements: any[]) => {
+          if (elements.length > 0) {
+            const chart = event.chart;
+            const datasetIndex = elements[0].datasetIndex;
+            const index = elements[0].index;
+            const dateClicked = labels[index];
+
+            console.log(`Clicked on date: ${dateClicked}`);
+
+          }
         }
       };
       this.cd.markForCheck();
     }
   }
 
-  onChangeLocationClick() {
-    console.log(this.currentDay);
-  }
+
 }
