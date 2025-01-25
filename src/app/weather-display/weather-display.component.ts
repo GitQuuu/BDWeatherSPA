@@ -3,7 +3,7 @@ import {WeatherService} from '../services/weather/weather.service';
 import {ApiResponseModel} from '../services/apiResponseModel';
 import {CurrentDay, ForecastDay, LocationModel} from '../services/weather/forecastResponseModel';
 import {Subscription} from 'rxjs';
-import {NgClass, NgIf, NgOptimizedImage} from '@angular/common';
+import {NgClass, NgIf} from '@angular/common';
 import {CurrentDayComponent} from './current-day/current-day.component';
 
 @Component({
@@ -12,8 +12,7 @@ import {CurrentDayComponent} from './current-day/current-day.component';
   imports: [
     NgClass,
     NgIf,
-    NgOptimizedImage,
-    CurrentDayComponent
+    CurrentDayComponent,
   ],
   templateUrl: './weather-display.component.html',
   styleUrl: './weather-display.component.css'

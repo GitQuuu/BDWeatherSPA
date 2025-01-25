@@ -1,16 +1,19 @@
-<div class="flex w-full h-screen" [ngClass]="getWeatherClass()">
-  <div class="flex w-full ">
-    <img class="size-10 m-4 sm:size-16"
-         src="https://framerusercontent.com/assets/yUkK5egE7b94WICNQRrxrBteBA.webp"
-         alt="Better developer logo">
-    <p class="mt-4 sm:mt-8 text-3xl text-white">Weathy</p>
-  </div>
+<div class="flex w-full items-center px-4 my-10">
+  <img class="size-10 sm:size-16"
+       src="https://framerusercontent.com/assets/yUkK5egE7b94WICNQRrxrBteBA.webp"
+       alt="Better developer logo">
+  <p class="ml-2 text-3xl text-white">Weathy</p>
 
-  <img *ngIf="this.weatherService.$CurrentDay()" class="size-16 m-1 sm:size-20"
-       ngSrc="{{this.weatherService.$CurrentDay()?.condition?.icon}}"
-       alt="weather condition logo"
-       width="1"
-       height="1"
-  >
+  <!-- Weather Icon Positioned to the Right -->
+  <img *ngIf="this.weatherService.$CurrentDay()" class="size-10 sm:size-12 ml-auto"
+       [src]="this.weatherService.$CurrentDay()?.condition?.icon"
+       alt="weather condition logo">
+</div>
 
+<div class="flex flex-col items-center justify-center w-full h-screen" [ngClass]="getWeatherClass()">
+  <!-- Top Header (Logo + Title) -->
+
+
+  <!-- Centered Weather Info -->
+  <app-current-day class="flex justify-center items-center mb-44 sm:mb-96"></app-current-day>
 </div>
