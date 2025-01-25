@@ -38,20 +38,18 @@ export class CurrentDayComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['forecasts']) {
       console.log('Forecasts changed:', this.forecasts);
-      for (const day of this.forecasts.forecastday) {
-        console.log(day);
+      if (this.forecasts){
+        for (const day of this.forecasts.forecastday) {
+          console.log(day);
+        }
       }
-
-      // Force change detection if needed
-      this.cd.detectChanges();
-
       // Reinitialize chart or perform other actions
       this.initChart();
     }
   }
 
   ngOnInit(): void {
-    this.initChart();
+
   }
   @Input() currentDay!: CurrentDay;
   @Input() location!: LocationModel;
@@ -68,8 +66,13 @@ export class CurrentDayComponent implements OnInit, OnChanges {
       const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
       const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
 
+      // ✅ Extract forecast dates for labels
+      const labels = this.forecasts.forecastday.map(forecast => forecast.date || 'No Date');
+      console.log(labels)
+
+
       this.data = {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        labels: labels,
         datasets: [
           {
             type: 'line',

@@ -27,7 +27,7 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.weatherDataSub = this.weatherService.getWeatherData("Aalborg", 2).subscribe({
+        this.weatherDataSub = this.weatherService.getWeatherData("Aalborg", 7).subscribe({
           next: (data) => {
             let response = data.body as ApiResponseModel;
             console.log(response);
