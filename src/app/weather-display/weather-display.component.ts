@@ -4,6 +4,7 @@ import {ApiResponseModel} from '../services/apiResponseModel';
 import {CurrentDay, ForecastDay, LocationModel} from '../services/weather/forecastResponseModel';
 import {Subscription} from 'rxjs';
 import {NgClass, NgIf, NgOptimizedImage} from '@angular/common';
+import {CurrentDayComponent} from './current-day/current-day.component';
 
 @Component({
   selector: 'app-weather-display',
@@ -11,7 +12,8 @@ import {NgClass, NgIf, NgOptimizedImage} from '@angular/common';
   imports: [
     NgClass,
     NgIf,
-    NgOptimizedImage
+    NgOptimizedImage,
+    CurrentDayComponent
   ],
   templateUrl: './weather-display.component.html',
   styleUrl: './weather-display.component.css'
