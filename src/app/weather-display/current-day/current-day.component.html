@@ -1,7 +1,6 @@
 <p-card styleClass="w-full overflow-hidden bg-card" >
   <ng-template #header>
-
-    <img alt="Card"  src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
+    <p-chart  [data]="data" [options]="options"></p-chart>
   </ng-template>
   <ng-template #title>
     <div class="flex justify-between items-center">
