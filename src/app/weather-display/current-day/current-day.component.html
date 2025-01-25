@@ -12,7 +12,8 @@
       </div>
     </div>
   </ng-template>
-  <ng-template #subtitle> <p class="-mt-7">{{this.location?.localtime | date }}</p> </ng-template>
+  <ng-template #subtitle> <p class="-mt-7">{{ this.location?.localtime | date: 'dd-MM-yyyy HH:mm' }}</p>
+  </ng-template>
 
   <div class="flex justify-between mt-4">
     <div>
