@@ -1,13 +1,13 @@
-<div class="flex w-full  px-4 my-5">
+<div class="flex w-full px-4 my-5">
   <img class="size-10 sm:size-16"
        src="https://framerusercontent.com/assets/yUkK5egE7b94WICNQRrxrBteBA.webp"
        alt="Better developer logo">
   <p class="ml-2 text-3xl text-white">Weathy</p>
 </div>
 
-<div class="grid grid-cols-3 grid-rows-2 items-center gap-2" [ngClass]="this.weatherService.$CurrentDayBackground()">
+<div class="grid grid-cols-1 sm:grid-cols-3 sm:grid-rows-2 items-center gap-2" [ngClass]="this.weatherService.$CurrentDayBackground()">
   <app-forecast
-    class=" col-span-2 row-span-2 m-4"
+    class=" row-start-2 sm:row-start-1 col-span-2 row-span-2 m-4"
     [currentDay]=this.weatherService.$CurrentDay()
     [forecasts]="this.weatherService.$Forecast()">
   </app-forecast>
@@ -18,7 +18,7 @@
       [currentDay]=this.weatherService.$CurrentDay()
     >
     </app-current-day>
-    <div class="flex w-full gap-2 my-6 items-center">
+    <div class="flex w-full gap-2 my-1 items-center">
       <p-floatlabel class="flex-grow">
         <input
           [value]="newLocation"
