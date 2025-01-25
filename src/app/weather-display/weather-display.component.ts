@@ -55,6 +55,7 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
 
     let selector = WeatherClass.Default;
 
+    if (condition.includes("light rain")) selector = WeatherClass.LightRain;
     if (condition.includes("rain")) selector = WeatherClass.Rainy;
     if (condition.includes("overcast")) selector = WeatherClass.Cloudy;
     if (condition.includes("partly cloudy")) selector = WeatherClass.PartlyCloudy;

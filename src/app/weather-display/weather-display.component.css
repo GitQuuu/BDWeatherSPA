@@ -1,3 +1,7 @@
+.light-rain {
+  @apply bg-gradient-to-br from-blue-100 to-blue-300;
+}
+
 .rainy {
   @apply bg-gradient-to-br from-blue-400 to-blue-500;
 }
