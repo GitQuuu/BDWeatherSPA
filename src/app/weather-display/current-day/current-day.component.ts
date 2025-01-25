@@ -53,7 +53,7 @@ export class CurrentDayComponent implements OnInit, OnChanges {
   platformId = inject(PLATFORM_ID);
 
   initChart() {
-    if (isPlatformBrowser(this.platformId)) {
+    if (isPlatformBrowser(this.platformId) && this.forecasts?.forecastday){
       const documentStyle = getComputedStyle(document.documentElement);
       const textColor = documentStyle.getPropertyValue('--p-text-color');
       const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
