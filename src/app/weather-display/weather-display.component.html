@@ -5,7 +5,7 @@
   <p class="ml-2 text-3xl text-white">Weathy</p>
 </div>
 
-<div class="flex flex-col items-center justify-center w-full h-screen" [ngClass]="getWeatherClass()">
+<div class="flex flex-col items-center justify-center w-full h-screen" [ngClass]="this.weatherService.$CurrentDayBackground()">
 
   <app-current-day
     [location]="this.weatherService.$Location()"

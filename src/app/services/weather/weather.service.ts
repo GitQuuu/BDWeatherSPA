@@ -14,6 +14,7 @@ export class WeatherService extends HttpService{
   }
 
   $CurrentDay = signal<CurrentDay>(null!);
+  $CurrentDayBackground = signal<string>('')
   $Forecast = signal<ForecastDay[]>([]);
   $Location = signal<LocationModel>(null!);
 

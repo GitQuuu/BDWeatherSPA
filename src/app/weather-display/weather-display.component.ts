@@ -3,7 +3,7 @@ import {WeatherService} from '../services/weather/weather.service';
 import {ApiResponseModel} from '../services/apiResponseModel';
 import {CurrentDay, ForecastDay, LocationModel} from '../services/weather/forecastResponseModel';
 import {Subscription} from 'rxjs';
-import {NgClass, NgIf} from '@angular/common';
+import {NgClass} from '@angular/common';
 import {CurrentDayComponent} from './current-day/current-day.component';
 
 @Component({
@@ -36,26 +36,35 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
             console.log(this.weatherService.$CurrentDay());
             console.log(this.weatherService.$Forecast());
             console.log(this.weatherService.$Location());
+
           },
           error: (err) => {
             console.log(err);
           },
-          complete: () => {}
+          complete: () => {
+            this.getWeatherClass();
+          }
         })
+      console.log("Weather Display Component loaded");
     }
 
-  getWeatherClass(): string {
+  getWeatherClass() {
     const condition = this.weatherService.$CurrentDay()?.condition.text.toLowerCase() || "";
+    console.log("Current weather condition:", condition);
 
-    if (condition.includes("rain")) return "rainy";
-    if (condition.includes("overcast")) return "cloudy";
-    if (condition.includes("sunny") || condition.includes("clear")) return "clear";
-    if (condition.includes("snow")) return "snowy";
-    if (condition.includes("storm") || condition.includes("thunder")) return "stormy";
-    if (condition.includes("fog") || condition.includes("haze")) return "foggy";
-    if (condition.includes("wind")) return "windy";
+    let weatherClass = "default-weather";
 
-    return "default-weather";
+    if (condition.includes("rain")) weatherClass = "rainy";
+    if (condition.includes("overcast")) weatherClass = "cloudy";
+    if (condition.includes("partly cloudy")) weatherClass = "partly-cloudy";
+    if (condition.includes("sunny") || condition.includes("clear")) weatherClass = "clear";
+    if (condition.includes("snow")) weatherClass = "snowy";
+    if (condition.includes("storm") || condition.includes("thunder")) weatherClass = "stormy";
+    if (condition.includes("fog") || condition.includes("haze")) weatherClass = "foggy";
+    if (condition.includes("wind")) weatherClass = "windy";
+
+    this.weatherService.$CurrentDayBackground.set(weatherClass);
+    console.log(this.weatherService.$CurrentDayBackground());
   }
 
 }
