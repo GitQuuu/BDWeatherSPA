@@ -3,11 +3,14 @@
     <img alt="Card" class="w-full" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
   </ng-template>
   <ng-template #title>
-    <div class="flex justify-between">
-      <p class="mt-4">{{this.location?.name}}</p>
-      <img src="{{this.currentDay?.condition?.icon}}" alt="weather state icon">
-    </div>
+    <div class="flex justify-between items-center">
+      <p>{{ this.location?.name }}</p>
 
+      <div class="grid grid-cols-1 place-items-center text-center">
+        <img class="w-12 h-12" src="{{ this.currentDay?.condition?.icon }}" alt="weather state icon">
+        <p class="text-xl text-white">{{ this.currentDay?.condition?.text }}</p>
+      </div>
+    </div>
   </ng-template>
   <ng-template #subtitle> {{this.location?.localtime | date }} </ng-template>
   <p>
@@ -16,8 +19,7 @@
   </p>
   <ng-template #footer>
     <div class="flex gap-4 mt-1">
-      <p-button label="Cancel" severity="secondary" class="w-full" [outlined]="true" styleClass="w-full" />
-      <p-button label="Save" class="w-full" styleClass="w-full" />
+      <p-button label="Change location" class="w-full" styleClass="w-full" />
     </div>
   </ng-template>
 </p-card>
