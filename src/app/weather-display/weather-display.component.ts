@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {WeatherService} from '../services/weather/weather.service';
 import {ApiResponseModel} from '../services/apiResponseModel';
-import {CurrentDay, ForecastDay, LocationModel} from '../services/weather/forecastResponseModel';
+import {CurrentDay, Forecast, ForecastDay, LocationModel} from '../services/weather/forecastResponseModel';
 import {Subscription} from 'rxjs';
 import {NgClass} from '@angular/common';
 import {CurrentDayComponent} from './current-day/current-day.component';
@@ -32,7 +32,7 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
             let response = data.body as ApiResponseModel;
             console.log(response);
             this.weatherService.$CurrentDay.set(response.data.current as CurrentDay);
-            this.weatherService.$Forecast.set(response.data.forecast as ForecastDay[]);
+            this.weatherService.$Forecast.set(response.data.forecast as Forecast);
             this.weatherService.$Location.set(response.data.location as LocationModel);
             console.log(this.weatherService.$CurrentDay());
             console.log(this.weatherService.$Forecast());

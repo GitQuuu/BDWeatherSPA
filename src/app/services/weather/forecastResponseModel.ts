@@ -34,6 +34,9 @@ export interface CurrentDay {
   wind_mph: number;
 }
 
+export type Forecast = {
+  forecastday : ForecastDay[];
+}
 export type ForecastDay = {
   date: string;
   dateEpoch: number;
