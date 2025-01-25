@@ -156,7 +156,7 @@ export class CurrentDayComponent implements OnInit, OnChanges {
           }
         }
       };
-      this.cd.markForCheck();
+      this.cd.detectChanges();
     }
   }
 
