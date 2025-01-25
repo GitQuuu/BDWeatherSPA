@@ -3,11 +3,14 @@ import {WeatherService} from '../services/weather/weather.service';
 import {ApiResponseModel} from '../services/apiResponseModel';
 import {CurrentDay, ForecastDay, LocationModel} from '../services/weather/forecastResponseModel';
 import {Subscription} from 'rxjs';
+import {NgClass} from '@angular/common';
 
 @Component({
   selector: 'app-weather-display',
   standalone: true,
-  imports: [],
+  imports: [
+    NgClass
+  ],
   templateUrl: './weather-display.component.html',
   styleUrl: './weather-display.component.css'
 })
@@ -38,5 +41,20 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
           complete: () => {}
         })
     }
+
+
+  getWeatherClass(): string {
+    const condition = this.weatherService.$CurrentDay()?.condition.text.toLowerCase() || "";
+
+    if (condition.includes("rain")) return "rainy";
+    if (condition.includes("cloud")) return "cloudy";
+    if (condition.includes("sunny") || condition.includes("clear")) return "clear";
+    if (condition.includes("snow")) return "snowy";
+    if (condition.includes("storm") || condition.includes("thunder")) return "stormy";
+    if (condition.includes("fog") || condition.includes("haze")) return "foggy";
+    if (condition.includes("wind")) return "windy";
+
+    return "default-weather"; // Default fallback
+  }
 
 }
