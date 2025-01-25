@@ -1,8 +1,17 @@
-import {ChangeDetectorRef, Component, inject, Input, PLATFORM_ID, SimpleChanges} from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  inject,
+  Input, OnChanges,
+  Output,
+  PLATFORM_ID,
+  SimpleChanges
+} from '@angular/core';
 import {Card} from 'primeng/card';
 import {isPlatformBrowser} from '@angular/common';
 import {UIChart} from 'primeng/chart';
-import {CurrentDay, Forecast} from '../../services/weather/forecastResponseModel';
+import {CurrentDay, Forecast, ForecastDay} from '../../services/weather/forecastResponseModel';
 
 @Component({
   selector: 'app-forecast',
@@ -13,9 +22,10 @@ import {CurrentDay, Forecast} from '../../services/weather/forecastResponseModel
   templateUrl: './forecast.component.html',
   styleUrl: './forecast.component.css'
 })
-export class ForecastComponent {
+export class ForecastComponent implements OnChanges {
   @Input() forecasts!: Forecast;
   @Input() currentDay!: CurrentDay;
+  @Output() emitClickedForcastDay = new EventEmitter<ForecastDay>();
   data: any;
   options: any;
   platformId = inject(PLATFORM_ID);
@@ -121,6 +131,7 @@ export class ForecastComponent {
             console.log(clickedForecast);
 
             if (clickedForecast) {
+              this.emitClickedForcastDay.emit(clickedForecast);
               this.currentDay.temp_c = clickedForecast.day.avgtemp_c;
               this.currentDay.humidity = clickedForecast.day.avghumidity;
               this.currentDay.wind_kph = clickedForecast.day.maxwind_kph;

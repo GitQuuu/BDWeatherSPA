@@ -1,13 +1,14 @@
 import {
   Component,
   EventEmitter,
-  Input,
+  Input, OnChanges, OnInit,
   Output,
+  SimpleChanges,
 } from '@angular/core';
 import {Card} from 'primeng/card';
 
 import {CurrentDay, LocationModel} from '../../services/weather/forecastResponseModel';
-import {DatePipe } from '@angular/common';
+import {DatePipe} from '@angular/common';
 import {ChartModule} from 'primeng/chart';
 
 @Component({
@@ -23,9 +24,16 @@ import {ChartModule} from 'primeng/chart';
   templateUrl: './current-day.component.html',
   styleUrl: './current-day.component.css'
 })
-export class CurrentDayComponent {
+export class CurrentDayComponent implements  OnChanges {
+  ngOnChanges(changes: SimpleChanges): void {
+      if (changes['updateDay']) {
+        if (this.updateDay) {
+          console.log(this.updateDay);
+          this.location.localtime = this.updateDay.date;
+        }
+      }
+  }
   @Input() currentDay!: CurrentDay;
   @Input() location!: LocationModel;
-  @Output() changeLocation = new EventEmitter();
-
+  @Input() updateDay!: any;
 }

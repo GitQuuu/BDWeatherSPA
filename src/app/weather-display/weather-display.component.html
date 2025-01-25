@@ -5,24 +5,25 @@
   <p class="ml-2 text-3xl text-white">Weathy</p>
 </div>
 
-<div class="grid grid-cols-1 sm:grid-cols-3 sm:grid-rows-2 items-center gap-2" [ngClass]="this.weatherService.$CurrentDayBackground()">
+<div class="grid grid-cols-1 sm:grid-cols-3 sm:grid-rows-2 items-center gap-2 " [ngClass]="this.weatherService.$CurrentDayBackground()">
   <app-forecast
     class=" row-start-2 sm:row-start-1 col-span-2 row-span-2 m-4"
+    (emitClickedForcastDay)="listenToChartClick($event)"
     [currentDay]=this.weatherService.$CurrentDay()
     [forecasts]="this.weatherService.$Forecast()">
   </app-forecast>
   <div class="self-start  m-4">
     <app-current-day
-
       [location]="this.weatherService.$Location()"
       [currentDay]=this.weatherService.$CurrentDay()
+      [updateDay]="this.updateCurrentDay"
     >
     </app-current-day>
     <div class="flex w-full gap-2 my-1 items-center">
       <p-floatlabel class="flex-grow">
         <input
           [value]="newLocation"
-          (input)="locationListener($event)"
+          (input)="newLocationListener($event)"
           class="w-full p-2"
           pInputText id="on_label"
           autocomplete="off" />

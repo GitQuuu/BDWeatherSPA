@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {WeatherService} from '../services/weather/weather.service';
-import {CurrentDay, Forecast, LocationModel} from '../services/weather/forecastResponseModel';
+import {CurrentDay, Forecast, ForecastDay, LocationModel} from '../services/weather/forecastResponseModel';
 import {Subscription} from 'rxjs';
 import {NgClass} from '@angular/common';
 import {CurrentDayComponent} from './current-day/current-day.component';
@@ -30,6 +30,7 @@ import {Button} from 'primeng/button';
 export class WeatherDisplayComponent implements OnInit, OnDestroy {
   private weatherDataSub: Subscription = new Subscription();
   newLocation: string = '';
+  updateCurrentDay:any;
 
   constructor(protected weatherService: WeatherService) {
     this.getWeatherData("Århus")
@@ -88,7 +89,7 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
   }
 
 
-  locationListener($event: Event) {
+  newLocationListener($event: Event) {
     const inputElement = $event.target as HTMLInputElement;
     console.log(inputElement.value);
     this.newLocation = inputElement.value;
@@ -96,5 +97,9 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
 
   updateLocationClick() {
     this.getWeatherData(this.newLocation);
+  }
+
+  listenToChartClick($event: ForecastDay) {
+    this.updateCurrentDay = $event;
   }
 }
