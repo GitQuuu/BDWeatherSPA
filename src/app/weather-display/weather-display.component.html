@@ -5,15 +5,16 @@
   <p class="ml-2 text-3xl text-white">Weathy</p>
 </div>
 
-<div class="flex flex-col items-center justify-center w-full h-screen" [ngClass]="this.weatherService.$CurrentDayBackground()">
-
-  <app-current-day
-    [location]="this.weatherService.$Location()"
-    [currentDay]=this.weatherService.$CurrentDay()
-    class="flex justify-center items-center mb-44 sm:mb-72 lg:mb-36 w-10/12">
-  </app-current-day>
+<div class="grid grid-cols-3 items-center  gap-2" [ngClass]="this.weatherService.$CurrentDayBackground()">
   <app-forecast
+    class="m-4 col-span-2"
     [currentDay]=this.weatherService.$CurrentDay()
     [forecasts]="this.weatherService.$Forecast()">
   </app-forecast>
+  <app-current-day
+    class="m-4"
+    [location]="this.weatherService.$Location()"
+    [currentDay]=this.weatherService.$CurrentDay()
+   >
+  </app-current-day>
 </div>
