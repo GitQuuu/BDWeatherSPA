@@ -1,20 +1,33 @@
-<div class="flex w-full items-center px-4 my-5">
+<div class="flex w-full  px-4 my-5">
   <img class="size-10 sm:size-16"
        src="https://framerusercontent.com/assets/yUkK5egE7b94WICNQRrxrBteBA.webp"
        alt="Better developer logo">
   <p class="ml-2 text-3xl text-white">Weathy</p>
 </div>
 
-<div class="grid grid-cols-3 items-center  gap-2" [ngClass]="this.weatherService.$CurrentDayBackground()">
+<div class="grid grid-cols-3 grid-rows-2 items-center gap-2" [ngClass]="this.weatherService.$CurrentDayBackground()">
   <app-forecast
-    class="m-4 col-span-2"
+    class=" col-span-2 row-span-2 m-4"
     [currentDay]=this.weatherService.$CurrentDay()
     [forecasts]="this.weatherService.$Forecast()">
   </app-forecast>
-  <app-current-day
-    class="m-4"
-    [location]="this.weatherService.$Location()"
-    [currentDay]=this.weatherService.$CurrentDay()
-   >
-  </app-current-day>
+  <div class="self-start  m-4">
+    <app-current-day
+
+      [location]="this.weatherService.$Location()"
+      [currentDay]=this.weatherService.$CurrentDay()
+    >
+    </app-current-day>
+    <div class="flex w-full gap-2 my-4 items-center">
+      <p-floatlabel class="flex-grow">
+        <input class="w-full p-2" pInputText id="on_label" [(ngModel)]="location" autocomplete="off" />
+        <label for="on_label">Cityname or lat & lon</label>
+      </p-floatlabel>
+      <p-button
+        class="whitespace-nowrap"
+        severity="success">Update location
+      </p-button>
+    </div>
+  </div>
+
 </div>

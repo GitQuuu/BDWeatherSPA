@@ -1,12 +1,16 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {WeatherService} from '../services/weather/weather.service';
-import {ApiResponseModel} from '../services/apiResponseModel';
-import {CurrentDay, Forecast, ForecastDay, LocationModel} from '../services/weather/forecastResponseModel';
+import {CurrentDay, Forecast, LocationModel} from '../services/weather/forecastResponseModel';
 import {Subscription} from 'rxjs';
 import {NgClass} from '@angular/common';
 import {CurrentDayComponent} from './current-day/current-day.component';
 import {WeatherClass} from './weatherClass';
 import {ForecastComponent} from './forecast/forecast.component';
+import {FloatLabel} from 'primeng/floatlabel';
+import {FormsModule} from '@angular/forms';
+import {ApiResponseModel} from '../services/ApiResponseModel';
+import {InputText} from 'primeng/inputtext';
+import {Button} from 'primeng/button';
 
 @Component({
   selector: 'app-weather-display',
@@ -15,41 +19,47 @@ import {ForecastComponent} from './forecast/forecast.component';
     NgClass,
     CurrentDayComponent,
     ForecastComponent,
+    FloatLabel,
+    FormsModule,
+    InputText,
+    Button,
   ],
   templateUrl: './weather-display.component.html',
   styleUrl: './weather-display.component.css'
 })
 export class WeatherDisplayComponent implements OnInit, OnDestroy {
   private weatherDataSub: Subscription = new Subscription();
-    constructor(protected weatherService: WeatherService) {
-    }
+  location: string = '';
+
+  constructor(protected weatherService: WeatherService) {
+  }
 
   ngOnDestroy(): void {
-        this.weatherDataSub.unsubscribe();
-    }
+    this.weatherDataSub.unsubscribe();
+  }
 
-    ngOnInit(): void {
-        this.weatherDataSub = this.weatherService.getWeatherData("Aalborg", 7).subscribe({
-          next: (data) => {
-            let response = data.body as ApiResponseModel;
-            console.log(response);
-            this.weatherService.$CurrentDay.set(response.data.current as CurrentDay);
-            this.weatherService.$Forecast.set(response.data.forecast as Forecast);
-            this.weatherService.$Location.set(response.data.location as LocationModel);
-            console.log(this.weatherService.$CurrentDay());
-            console.log(this.weatherService.$Forecast());
-            console.log(this.weatherService.$Location());
+  ngOnInit(): void {
+    this.weatherDataSub = this.weatherService.getWeatherData("Aalborg", 7).subscribe({
+      next: (data) => {
+        let response = data.body as ApiResponseModel;
+        console.log(response);
+        this.weatherService.$CurrentDay.set(response.data.current as CurrentDay);
+        this.weatherService.$Forecast.set(response.data.forecast as Forecast);
+        this.weatherService.$Location.set(response.data.location as LocationModel);
+        console.log(this.weatherService.$CurrentDay());
+        console.log(this.weatherService.$Forecast());
+        console.log(this.weatherService.$Location());
 
-          },
-          error: (err) => {
-            console.log(err);
-          },
-          complete: () => {
-            this.getWeatherClass();
-          }
-        })
-      console.log("Weather Display Component loaded");
-    }
+      },
+      error: (err) => {
+        console.log(err);
+      },
+      complete: () => {
+        this.getWeatherClass();
+      }
+    })
+    console.log("Weather Display Component loaded");
+  }
 
   getWeatherClass() {
     const condition = this.weatherService.$CurrentDay()?.condition.text.toLowerCase() || "";
@@ -71,5 +81,6 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
     this.weatherService.$CurrentDayBackground.set(selector);
     console.log(this.weatherService.$CurrentDayBackground());
   }
+
 
 }
