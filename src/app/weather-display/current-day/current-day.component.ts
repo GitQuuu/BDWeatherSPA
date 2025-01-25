@@ -45,7 +45,7 @@ export class CurrentDayComponent implements OnInit {
         datasets: [
           {
             type: 'line',
-            label: 'Dataset 1',
+            label: 'celcius',
             borderColor: documentStyle.getPropertyValue('--p-orange-500'),
             borderWidth: 2,
             fill: false,
@@ -54,7 +54,7 @@ export class CurrentDayComponent implements OnInit {
           },
           {
             type: 'bar',
-            label: 'Dataset 2',
+            label: 'humidity',
             backgroundColor: documentStyle.getPropertyValue('--p-gray-500'),
             data: [21, 84, 24, 75, 37, 65, 34],
             borderColor: 'white',
@@ -62,10 +62,19 @@ export class CurrentDayComponent implements OnInit {
           },
           {
             type: 'bar',
-            label: 'Dataset 3',
+            label: 'wind',
             backgroundColor: documentStyle.getPropertyValue('--p-cyan-500'),
             data: [41, 52, 24, 74, 23, 21, 32]
-          }
+          },
+          {
+            type: 'line',
+            label: 'rain',
+            borderColor: documentStyle.getPropertyValue('--p-blue-500'),
+            borderWidth: 2,
+            fill: false,
+            tension: 0.4,
+            data: [33, 10, 50, 80, 80, 0, 5]
+          },
         ]
       };
 
