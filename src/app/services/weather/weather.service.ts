@@ -2,7 +2,7 @@ import {Injectable, signal } from '@angular/core';
 import {HttpService} from '../http.service';
 import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
-import {CurrentDay, Forecast, ForecastDay, LocationModel} from './forecastResponseModel';
+import {CurrentDay, Forecast, LocationModel} from './forecastResponseModel';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +10,9 @@ import {CurrentDay, Forecast, ForecastDay, LocationModel} from './forecastRespon
 export class WeatherService extends HttpService{
 
   constructor(httpClient: HttpClient) {
-    super(environment.apiUrl + "/api", "weather", httpClient);
+    super(environment.apiUrl + "/api/v1/", "weather", httpClient);
   }
+
 
   $CurrentDay = signal<CurrentDay>(null!);
   $CurrentDayBackground = signal<string>('')
@@ -19,7 +20,7 @@ export class WeatherService extends HttpService{
   $Location = signal<LocationModel>(null!);
 
   getWeatherData(query:string, days:number){
-    return this.httpClient.get(`${environment.apiUrl}/api/Weather?query=${query}&days=${days}&language=dk`, {
+    return this.httpClient.get(`${environment.apiUrl}/api/v1/Weather?query=${query}&days=${days}&language=dk`, {
       observe     : 'response',
       responseType: 'json',
     })
