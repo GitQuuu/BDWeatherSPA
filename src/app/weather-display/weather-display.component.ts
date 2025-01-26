@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, signal} from '@angular/core';
 import {WeatherService} from '../services/weather/weather.service';
 import {CurrentDay, Forecast, ForecastDay, LocationModel} from '../services/weather/forecastResponseModel';
 import {Subscription} from 'rxjs';
@@ -11,6 +11,7 @@ import {FormsModule} from '@angular/forms';
 import {ApiResponseModel} from '../services/ApiResponseModel';
 import {InputText} from 'primeng/inputtext';
 import {Button} from 'primeng/button';
+import {ToggleSwitch} from 'primeng/toggleswitch';
 
 @Component({
   selector: 'app-weather-display',
@@ -23,6 +24,7 @@ import {Button} from 'primeng/button';
     FormsModule,
     InputText,
     Button,
+    ToggleSwitch,
   ],
   templateUrl: './weather-display.component.html',
   styleUrl: './weather-display.component.css'
@@ -31,6 +33,7 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
   private weatherDataSub: Subscription = new Subscription();
   newLocation: string = '';
   updateCurrentDay:any;
+  isDarkMode = signal<boolean>(false);
 
   constructor(protected weatherService: WeatherService) {
     this.getWeatherData("Århus")
@@ -93,4 +96,9 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
     this.getWeatherClass(condition);
   }
 
+  toggleDarkMode() {
+    const element = document.querySelector('html');
+    element?.classList.toggle('dark');
+    this.isDarkMode.set(!this.isDarkMode());
+  }
 }
