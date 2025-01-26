@@ -50,7 +50,7 @@ export class ForecastComponent implements OnChanges, AfterViewInit, OnDestroy {
       .pipe(debounceTime(300)) // Wait 300ms between resize events
       .subscribe(() => {
         const newAspectRatio = this.updateChartAspectRatio();
-        console.log(`Updated Aspect Ratio: ${newAspectRatio}`);
+        (`Updated Aspect Ratio: ${newAspectRatio}`);
       });
   }
 
@@ -167,11 +167,7 @@ export class ForecastComponent implements OnChanges, AfterViewInit, OnDestroy {
           if (elements.length > 0) {
             const index = elements[0].index;
             const dateClicked = labels[index];
-
-            console.log(`Clicked on date: ${dateClicked}`);
-
             const clickedForecast = this.forecasts!.forecastday.find(forecast => forecast.date === dateClicked);
-            console.log(clickedForecast);
 
             if (clickedForecast) {
               this.emitClickedForecastDay.emit(clickedForecast);

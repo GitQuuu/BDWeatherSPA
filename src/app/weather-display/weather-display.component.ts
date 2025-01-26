@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, signal} from '@angular/core';
 import {WeatherService} from '../services/weather/weather.service';
 import {CurrentDay, Forecast, ForecastDay, LocationModel} from '../services/weather/forecastResponseModel';
 import {Subscription} from 'rxjs';
@@ -11,6 +11,7 @@ import {FormsModule} from '@angular/forms';
 import {ApiResponseModel} from '../services/ApiResponseModel';
 import {InputText} from 'primeng/inputtext';
 import {Button} from 'primeng/button';
+import {ToggleSwitch} from 'primeng/toggleswitch';
 
 @Component({
   selector: 'app-weather-display',
@@ -23,6 +24,7 @@ import {Button} from 'primeng/button';
     FormsModule,
     InputText,
     Button,
+    ToggleSwitch,
   ],
   templateUrl: './weather-display.component.html',
   styleUrl: './weather-display.component.css'
@@ -31,6 +33,7 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
   private weatherDataSub: Subscription = new Subscription();
   newLocation: string = '';
   updateCurrentDay:any;
+  isDarkMode = signal<boolean>(false);
 
   constructor(protected weatherService: WeatherService) {
     this.getWeatherData("Århus")
@@ -41,22 +44,23 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
-    console.log("Weather Display Component loaded");
+    const storedDarkMode = localStorage.getItem('darkMode');
+    if (storedDarkMode !== null) {
+      const isDark = JSON.parse(storedDarkMode);
+      this.isDarkMode.set(isDark);
+      this.applyTheme(isDark);
+    }
   }
+
+
 
   getWeatherData(location:string){
     this.weatherDataSub = this.weatherService.getWeatherData(location, 7).subscribe({
       next: (data) => {
         let response = data.body as ApiResponseModel;
-        console.log(response);
         this.weatherService.$CurrentDay.set(response.data.current as CurrentDay);
         this.weatherService.$Forecast.set(response.data.forecast as Forecast);
         this.weatherService.$Location.set(response.data.location as LocationModel);
-        console.log(this.weatherService.$CurrentDay());
-        console.log(this.weatherService.$Forecast());
-        console.log(this.weatherService.$Location());
-
       },
       error: (err) => {
         console.log(err);
@@ -68,8 +72,6 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
   }
 
   getWeatherClass(condition:string) {
-    console.log("Current weather condition:", condition);
-
     let selector = WeatherClass.Default;
 
     if (condition.includes("light rain")) selector = WeatherClass.LightRain;
@@ -84,13 +86,11 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
     if (condition.includes("wind")) selector = WeatherClass.Windy;
 
     this.weatherService.$CurrentDayBackground.set(selector);
-    console.log(this.weatherService.$CurrentDayBackground());
   }
 
 
   newLocationListener($event: Event) {
     const inputElement = $event.target as HTMLInputElement;
-    console.log(inputElement.value);
     this.newLocation = inputElement.value;
   }
 
@@ -100,11 +100,39 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
 
   listenToChartClick($event: ForecastDay) {
     this.updateCurrentDay = $event;
-
     const condition = this.updateCurrentDay.day.condition.text.toLowerCase() || ""
-    console.log(condition);
-
     this.getWeatherClass(condition);
   }
 
+  applyTheme(isDark: boolean) {
+    const element = document.querySelector('html');
+    if (isDark) {
+      element?.classList.add('dark');
+    } else {
+      element?.classList.remove('dark');
+    }
+  }
+
+  toggleDarkMode() {
+    const newDarkModeState = !this.isDarkMode();
+    this.isDarkMode.set(newDarkModeState);
+    localStorage.setItem('darkMode', JSON.stringify(newDarkModeState));
+    this.applyTheme(newDarkModeState);
+  }
+
+  darkThemeSwitchTokens = {
+    width: '4.2rem',
+    height: '2.3rem',
+    checkedBackground: '#ccc',
+    checkedHoverBackground: '#ddd',
+    handle: {
+      size: '2rem',
+      background: 'transparent url("https://cdn-icons-png.flaticon.com/128/10484/10484062.png") 0 0 / 2rem no-repeat',
+      hoverBackground: 'transparent url("https://cdn-icons-png.flaticon.com/128/10484/10484062.png") 0 0 / 2rem no-repeat',
+      checkedBackground:
+        'transparent url("https://cdn-icons-png.flaticon.com/128/2024/2024058.png") 0 0 / 2rem no-repeat',
+      checkedHoverBackground:
+        'transparent url("https://cdn-icons-png.flaticon.com/128/2024/2024058.png") 0 0 / 2rem no-repeat',
+    },
+  };
 }

@@ -15,6 +15,8 @@ export class AppComponent {
     this.primeng.theme.set({
       preset: Aura,
       options: {
+        darkMode: false,
+        darkModeSelector: '.dark',
         cssLayer: {
           name: 'primeng',
           order: 'tailwind-base, primeng, tailwind-utilities'
