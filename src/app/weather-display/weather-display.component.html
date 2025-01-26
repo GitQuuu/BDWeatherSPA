@@ -7,16 +7,10 @@
   </div>
 
   <div class="flex mt-4 sm:mt-10">
-    <div >
-      @if (isDarkMode()) {
-        🌙
-      } @else {
-         🌞
-      }
-    </div>
     <p-toggleswitch
       [ngModel]="isDarkMode()"
       (ngModelChange)="toggleDarkMode()"
+      [dt]="darkThemeSwitchTokens"
     ></p-toggleswitch>
   </div>
 

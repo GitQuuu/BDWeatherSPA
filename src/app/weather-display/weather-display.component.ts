@@ -101,4 +101,20 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
     element?.classList.toggle('dark');
     this.isDarkMode.set(!this.isDarkMode());
   }
+
+  darkThemeSwitchTokens = {
+    width: '4.2rem',
+    height: '2.3rem',
+    checkedBackground: '#ccc',
+    checkedHoverBackground: '#ddd',
+    handle: {
+      size: '2rem',
+      background: 'transparent url("https://cdn-icons-png.flaticon.com/128/10484/10484062.png") 0 0 / 2rem no-repeat',
+      hoverBackground: 'transparent url("https://cdn-icons-png.flaticon.com/128/10484/10484062.png") 0 0 / 2rem no-repeat',
+      checkedBackground:
+        'transparent url("https://cdn-icons-png.flaticon.com/128/2024/2024058.png") 0 0 / 2rem no-repeat',
+      checkedHoverBackground:
+        'transparent url("https://cdn-icons-png.flaticon.com/128/2024/2024058.png") 0 0 / 2rem no-repeat',
+    },
+  };
 }
