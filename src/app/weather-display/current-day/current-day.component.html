@@ -1,0 +1,38 @@
+<p-card class="w-full" >
+  <ng-template #header>
+  </ng-template>
+  <ng-template #title>
+    <div class="flex justify-between items-center">
+      <p class="-mt-4">{{ this.location?.name }} / <small class="text-sm">{{this.location?.country}}</small></p>
+
+      <div class="grid grid-cols-1 place-items-center text-center">
+        <img class="w-12 h-12" src="{{ this.currentDay?.condition?.icon }}" alt="weather state icon">
+        <p class="text-sm ">{{ this.currentDay?.condition?.text }}</p>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #subtitle> <p class="-mt-8">{{ this.location?.localtime | date }}</p>
+  </ng-template>
+
+  <div class="flex justify-between mt-4 ">
+    <div>
+      <img class="size-12" src="assets/icons/thermo.png" alt="temperature">
+      <p class="ml-2 sm:ml-4">{{ this.currentDay?.temp_c }}°C</p>
+    </div>
+    <div>
+      <img class="size-12" src="assets/icons/humidity.png" alt="humidity">
+      <p class="ml-2 sm:ml-3">{{ this.currentDay?.humidity }}%</p>
+    </div>
+    <div>
+      <img class="size-12" src="assets/icons/wind%20(1).png" alt="wind">
+      <p>{{ this.currentDay?.wind_kph }} kmp</p>
+    </div>
+    <div>
+      <img class="size-12" src="assets/icons/rain.png" alt="rain">
+      <p>{{ this.currentDay?.precip_mm }} mm</p>
+    </div>
+  </div>
+
+  <ng-template #footer>
+  </ng-template>
+</p-card>
