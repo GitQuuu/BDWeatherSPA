@@ -8,7 +8,7 @@
 <div class="grid grid-cols-1 sm:grid-cols-3 sm:grid-rows-2 items-center gap-2 animated-bg transition-all duration-1000 ease-in-out " [ngClass]="this.weatherService.$CurrentDayBackground()">
   <app-forecast
     class=" row-start-2 sm:row-start-1 col-span-2 row-span-2 m-4"
-    (emitClickedForcastDay)="listenToChartClick($event)"
+    (emitClickedForecastDay)="listenToChartClick($event)"
     [currentDay]=this.weatherService.$CurrentDay()
     [forecasts]="this.weatherService.$Forecast()">
   </app-forecast>
