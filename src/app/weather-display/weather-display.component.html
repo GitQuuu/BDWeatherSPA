@@ -1,16 +1,40 @@
-<div class="flex w-full items-center px-4 my-5">
-  <img class="size-10 sm:size-16"
+<div class="flex w-full px-4 my-5 ">
+  <img class="size-10 sm:size-16  animate-horizontal-spin "
        src="https://framerusercontent.com/assets/yUkK5egE7b94WICNQRrxrBteBA.webp"
        alt="Better developer logo">
   <p class="ml-2 text-3xl text-white">Weathy</p>
 </div>
 
-<div class="flex flex-col items-center justify-center w-full h-screen" [ngClass]="this.weatherService.$CurrentDayBackground()">
-
-  <app-current-day
-    [location]="this.weatherService.$Location()"
+<div class="grid grid-cols-1 sm:grid-cols-3 sm:grid-rows-2 items-center gap-2 animated-bg transition-all duration-1000 ease-in-out " [ngClass]="this.weatherService.$CurrentDayBackground()">
+  <app-forecast
+    class=" row-start-2 sm:row-start-1 col-span-2 row-span-2 m-4"
+    (emitClickedForecastDay)="listenToChartClick($event)"
     [currentDay]=this.weatherService.$CurrentDay()
-    [forecasts]=this.weatherService.$Forecast()
-    class="flex justify-center items-center mb-44 sm:mb-72 lg:mb-36 w-10/12">
-  </app-current-day>
+    [forecasts]="this.weatherService.$Forecast()">
+  </app-forecast>
+  <div class="self-start  m-4">
+    <app-current-day
+      [location]="this.weatherService.$Location()"
+      [currentDay]=this.weatherService.$CurrentDay()
+      [updateDay]="this.updateCurrentDay"
+    >
+    </app-current-day>
+    <div class="flex w-full gap-2 my-1 items-center">
+      <p-floatlabel class="flex-grow">
+        <input
+          [value]="newLocation"
+          (input)="newLocationListener($event)"
+          class="w-full p-2"
+          pInputText id="on_label"
+          autocomplete="off" />
+        <label for="on_label">City name or lat & lon</label>
+      </p-floatlabel>
+      <p-button
+        (click)="updateLocationClick()"
+        class="whitespace-nowrap"
+        severity="success">Update location
+      </p-button>
+    </div>
+  </div>
+
 </div>
