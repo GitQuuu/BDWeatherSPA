@@ -28,7 +28,6 @@ export class CurrentDayComponent implements  OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
       if (changes['updateDay']) {
         if (this.updateDay) {
-          console.log(this.updateDay);
           this.location.localtime = this.updateDay.date;
         }
       }

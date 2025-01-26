@@ -41,22 +41,15 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
-    console.log("Weather Display Component loaded");
   }
 
   getWeatherData(location:string){
     this.weatherDataSub = this.weatherService.getWeatherData(location, 7).subscribe({
       next: (data) => {
         let response = data.body as ApiResponseModel;
-        console.log(response);
         this.weatherService.$CurrentDay.set(response.data.current as CurrentDay);
         this.weatherService.$Forecast.set(response.data.forecast as Forecast);
         this.weatherService.$Location.set(response.data.location as LocationModel);
-        console.log(this.weatherService.$CurrentDay());
-        console.log(this.weatherService.$Forecast());
-        console.log(this.weatherService.$Location());
-
       },
       error: (err) => {
         console.log(err);
@@ -68,8 +61,6 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
   }
 
   getWeatherClass(condition:string) {
-    console.log("Current weather condition:", condition);
-
     let selector = WeatherClass.Default;
 
     if (condition.includes("light rain")) selector = WeatherClass.LightRain;
@@ -84,13 +75,11 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
     if (condition.includes("wind")) selector = WeatherClass.Windy;
 
     this.weatherService.$CurrentDayBackground.set(selector);
-    console.log(this.weatherService.$CurrentDayBackground());
   }
 
 
   newLocationListener($event: Event) {
     const inputElement = $event.target as HTMLInputElement;
-    console.log(inputElement.value);
     this.newLocation = inputElement.value;
   }
 
@@ -100,10 +89,7 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
 
   listenToChartClick($event: ForecastDay) {
     this.updateCurrentDay = $event;
-
     const condition = this.updateCurrentDay.day.condition.text.toLowerCase() || ""
-    console.log(condition);
-
     this.getWeatherClass(condition);
   }
 
