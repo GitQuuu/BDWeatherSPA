@@ -44,7 +44,15 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    const storedDarkMode = localStorage.getItem('darkMode');
+    if (storedDarkMode !== null) {
+      const isDark = JSON.parse(storedDarkMode);
+      this.isDarkMode.set(isDark);
+      this.applyTheme(isDark);
+    }
   }
+
+
 
   getWeatherData(location:string){
     this.weatherDataSub = this.weatherService.getWeatherData(location, 7).subscribe({
@@ -96,10 +104,20 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
     this.getWeatherClass(condition);
   }
 
-  toggleDarkMode() {
+  applyTheme(isDark: boolean) {
     const element = document.querySelector('html');
-    element?.classList.toggle('dark');
-    this.isDarkMode.set(!this.isDarkMode());
+    if (isDark) {
+      element?.classList.add('dark');
+    } else {
+      element?.classList.remove('dark');
+    }
+  }
+
+  toggleDarkMode() {
+    const newDarkModeState = !this.isDarkMode();
+    this.isDarkMode.set(newDarkModeState);
+    localStorage.setItem('darkMode', JSON.stringify(newDarkModeState)); 
+    this.applyTheme(newDarkModeState);
   }
 
   darkThemeSwitchTokens = {
