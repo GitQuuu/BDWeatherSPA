@@ -1,12 +1,12 @@
 import {
   ChangeDetectorRef,
   Component,
-  EventEmitter,
+  EventEmitter, HostListener,
   inject,
   Input, OnChanges,
   Output,
   PLATFORM_ID,
-  SimpleChanges
+  SimpleChanges, ViewChild
 } from '@angular/core';
 import {Card} from 'primeng/card';
 import {isPlatformBrowser} from '@angular/common';
@@ -37,6 +37,33 @@ export class ForecastComponent implements OnChanges {
     if (changes['forecasts']) {
       this.initChart();
     }
+  }
+
+  @HostListener('window:resize', [])
+  onResize() {
+    const newAspectRatio = this.updateChartAspectRatio();
+    console.log(`Updated Aspect Ratio: ${newAspectRatio}`);
+  }
+
+  @ViewChild('chart') chart!: UIChart;
+
+  updateChartAspectRatio(): number {
+    const aspectRatio = window.innerWidth <= 768 ? 0.9 : 0.4 ;
+
+    if (this.options) {
+      this.options = {
+        ...this.options,
+        aspectRatio: aspectRatio
+      };
+
+      if (this.chart) {
+        this.chart.reinit();
+      }
+
+      this.cd.detectChanges();
+    }
+
+    return aspectRatio;
   }
 
   initChart() {
@@ -94,7 +121,7 @@ export class ForecastComponent implements OnChanges {
 
       this.options = {
         maintainAspectRatio: false,
-        aspectRatio: 0.4,
+        aspectRatio: this.updateChartAspectRatio(),
         plugins: {
           legend: {
             labels: {
@@ -144,7 +171,9 @@ export class ForecastComponent implements OnChanges {
           }
         }
       };
+      this.updateChartAspectRatio();
       this.cd.detectChanges();
+
     }
   }
 }
