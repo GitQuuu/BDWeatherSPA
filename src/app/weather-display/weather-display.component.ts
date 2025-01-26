@@ -116,7 +116,7 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
   toggleDarkMode() {
     const newDarkModeState = !this.isDarkMode();
     this.isDarkMode.set(newDarkModeState);
-    localStorage.setItem('darkMode', JSON.stringify(newDarkModeState)); 
+    localStorage.setItem('darkMode', JSON.stringify(newDarkModeState));
     this.applyTheme(newDarkModeState);
   }
 
