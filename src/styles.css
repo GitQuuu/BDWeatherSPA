@@ -8,3 +8,9 @@
   @tailwind components;
   @tailwind utilities;
 }
+
+.animated-bg {
+  background: linear-gradient(270deg, #ffb347, #ffcc33, #3a6073, #16222a);
+  background-size: 400% 400%;
+  animation: gradientMove 8s ease infinite;
+}
