@@ -1,9 +1,10 @@
 import {
+  AfterViewInit,
   ChangeDetectorRef,
   Component,
-  EventEmitter, HostListener,
+  EventEmitter,
   inject,
-  Input, OnChanges,
+  Input, OnChanges, OnDestroy,
   Output,
   PLATFORM_ID,
   SimpleChanges, ViewChild
@@ -12,6 +13,7 @@ import {Card} from 'primeng/card';
 import {isPlatformBrowser} from '@angular/common';
 import {UIChart} from 'primeng/chart';
 import {CurrentDay, Forecast, ForecastDay} from '../../services/weather/forecastResponseModel';
+import {debounceTime, fromEvent, Subscription} from "rxjs";
 
 @Component({
   selector: 'app-forecast',
@@ -22,13 +24,16 @@ import {CurrentDay, Forecast, ForecastDay} from '../../services/weather/forecast
   templateUrl: './forecast.component.html',
   styleUrl: './forecast.component.css'
 })
-export class ForecastComponent implements OnChanges {
+export class ForecastComponent implements OnChanges, AfterViewInit, OnDestroy {
   @Input() forecasts!: Forecast;
   @Input() currentDay!: CurrentDay;
   @Output() emitClickedForecastDay = new EventEmitter<ForecastDay>();
+  @ViewChild('chart') chart!: UIChart;
   data: any;
   options: any;
   platformId = inject(PLATFORM_ID);
+  resizeSubscription!: Subscription; // Subscription to manage window resize listener
+
 
   constructor(private cd: ChangeDetectorRef) {
   }
@@ -39,16 +44,27 @@ export class ForecastComponent implements OnChanges {
     }
   }
 
-  @HostListener('window:resize', [])
-  onResize() {
-    const newAspectRatio = this.updateChartAspectRatio();
-    console.log(`Updated Aspect Ratio: ${newAspectRatio}`);
+  ngAfterViewInit(): void {
+    // Listen to window resize events and debounce to prevent excessive calls
+    this.resizeSubscription = fromEvent(window, 'resize')
+      .pipe(debounceTime(300)) // Wait 300ms between resize events
+      .subscribe(() => {
+        const newAspectRatio = this.updateChartAspectRatio();
+        console.log(`Updated Aspect Ratio: ${newAspectRatio}`);
+      });
   }
 
-  @ViewChild('chart') chart!: UIChart;
+  ngOnDestroy(): void {
+    // Unsubscribe from resize event to avoid memory leaks
+    if (this.resizeSubscription) {
+      this.resizeSubscription.unsubscribe();
+    }
+  }
+
+
 
   updateChartAspectRatio(): number {
-    const aspectRatio = window.innerWidth <= 768 ? 0.9 : 0.4 ;
+    const aspectRatio = window.innerWidth <= 768 ? 0.9 : 0.4;
 
     if (this.options) {
       this.options = {
@@ -57,7 +73,7 @@ export class ForecastComponent implements OnChanges {
       };
 
       if (this.chart) {
-        this.chart.reinit();
+        this.chart.reinit(); // Force chart refresh
       }
 
       this.cd.detectChanges();
