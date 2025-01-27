@@ -1,6 +1,8 @@
 <div class="flex w-full px-4 my-5 justify-between ">
   <div class="flex">
-    <img class="size-10 sm:size-16  animate-horizontal-spin "
+    <img class="size-10 sm:size-16  animate-horizontal-spin"
+         width="2.5rem"
+         height="2.5rem"
          src="https://framerusercontent.com/assets/yUkK5egE7b94WICNQRrxrBteBA.webp"
          alt="Better developer logo">
     <p class="ml-2 text-3xl mt-2 sm:mt-7">Weathy</p>
@@ -15,7 +17,7 @@
   </div>
 </div>
 
-<div class="animated-bg transition-all duration-1000 ease-in-out" [ngClass]="this.weatherService.$CurrentDayBackground()">
+<div class="animated-bg transition-all duration-1000 ease-in-out" [ngClass]="this.weatherService.$SelectedDayBackground()">
   <div class="grid grid-cols-1 sm:grid-cols-3 sm:grid-rows-2 items-center gap-2 2xl:mx-72  " >
     <app-forecast
       class=" row-start-2 sm:row-start-1 col-span-2 row-span-2 m-4"
