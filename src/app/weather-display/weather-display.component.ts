@@ -85,7 +85,7 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
     if (condition.includes("fog") || condition.includes("haze")) selector = WeatherClass.Foggy;
     if (condition.includes("wind")) selector = WeatherClass.Windy;
 
-    this.weatherService.$CurrentDayBackground.set(selector);
+    this.weatherService.$SelectedDayBackground.set(selector);
   }
 
 
